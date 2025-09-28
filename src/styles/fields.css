@@ -1,0 +1,18 @@
+.fields-div {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+label.field-label {
+    font-weight: bold;
+}
+.field-input {
+    height: 30px;
+    max-width: 300px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+.fields-div textarea {
+    resize: none;
+}
