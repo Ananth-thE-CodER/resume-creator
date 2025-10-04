@@ -15,6 +15,7 @@ type FieldsSectionProp = {
     title: string;
     initialFields?: FieldData[];
     addButton?: boolean;
+    onFieldChange?: (name: string, value: string) => void;
 };
 
 export function FieldsSection ({children, title, initialFields=[], addButton}: FieldsSectionProp) {
