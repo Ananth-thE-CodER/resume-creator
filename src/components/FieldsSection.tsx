@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Field } from "./Fields";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import '../styles/fieldsSection.css'
 
 type FieldData = {
@@ -16,19 +16,30 @@ type FieldsSectionProp = {
     initialFields?: FieldData[];
     addButton?: boolean;
     onFieldChange?: (name: string, value: string) => void;
+    onAddField?: (name: string) => void;
 };
 
-export function FieldsSection ({children, title, initialFields=[], addButton}: FieldsSectionProp) {
+export function FieldsSection ({children, title, initialFields=[], addButton, onFieldChange, onAddField}: FieldsSectionProp) {
     const [fields, setFields] = useState<FieldData[]>(initialFields);
 
     const handleAddField = () => {
         const newField: FieldData = {
             id: Date.now(),
             type: 'input',
-            name: ''
+            name: `Untitled_${Date.now()}`
 
         }
         setFields([...fields, newField])
+        onAddField?.(newField.name);
+    };
+
+    const handleChange = (name: string, value: string) => {
+        const field = fields.find(f => f.name === name);
+        if (!field) return;
+
+        if (onFieldChange) {
+            onFieldChange(field.name, value);
+        }
     };
 
     return (
@@ -48,7 +59,7 @@ export function FieldsSection ({children, title, initialFields=[], addButton}: F
                         <div className="fields-fields">
                             {fields.map((f) => {
                                 return (
-                                    <Field key={f.id} name={f.name} type={f.type} title={f.title || ''}/>
+                                    <Field key={f.id} name={f.name} type={f.type} title={f.title || ''} onChange={handleChange}/>
                                 );
                             })}
                         </div>

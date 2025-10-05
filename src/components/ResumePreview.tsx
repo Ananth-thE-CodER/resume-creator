@@ -1,3 +1,6 @@
+import React from 'react';
+import '../styles/resumePreview.css'
+
 interface ResumePreviewProps {
   data: {
     personal: Record<string, string>;
@@ -7,12 +10,17 @@ interface ResumePreviewProps {
   };
 }
 
-export default function ResumePreview({ data }: ResumePreviewProps) {
+export function ResumePreview({ data }: ResumePreviewProps) {
   return (
-    <div className="resume-preview p-4">
-      <h2>{data.personal.Name}</h2>
+    <div className="page resume-preview p-4">
+      {Object.entries(data.personal).map(([key, value]) => (
+        <React.Fragment key={key}>
+          {key == 'Name' ? <h2>{value}</h2>: <p>{value}</p>}
+        </React.Fragment>
+      ))}
+      {/* <h2>{data.personal.Name}</h2>
       <p>{data.personal.Email}</p>
-      <p>{data.personal.Phone}</p>
+      <p>{data.personal.Phone}</p> */}
 
       <h3>About Me</h3>
       <p>{data.about["About me"]}</p>
